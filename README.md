@@ -4,6 +4,11 @@
 
 meta-meta-osd32mp1-brk is a layer providing the Octavo osd32mp1-brk board hardware support for Yocto-based OpenSTLinux system.
 
+OCTAVO OSD32MP1-BRK <br>
+<br>
+
+![Product View](osd32mp1-brk.jpeg) <br>
+
 ## System image
 
 This layer should be used in order to build the st-image-weston image. It provides changes including the QT libraries.
