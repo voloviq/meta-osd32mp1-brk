@@ -84,6 +84,7 @@
     serial1 = &usart3;
     serial2 = &uart7;
     serial3 = &usart2;
+    mmc0 = &sdmmc1;
   };
 
   chosen {
@@ -595,7 +596,7 @@
 	status = "okay";
 
 	/* USER CODE BEGIN sdmmc1 */
-  cd-gpios = <&gpiob 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+  cd-gpios = <&gpiog 7 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
   disable-wp;
   st,neg-edge;
   bus-width = <4>;
