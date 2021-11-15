@@ -164,7 +164,7 @@
 	>;
 	st,pkcs = <
 		CLK_CKPER_DISABLED
-		CLK_ETH_DISABLED
+		CLK_ETH_PLL3Q
 		CLK_SDMMC12_PLL4P
 		CLK_STGEN_HSE
 		CLK_USBPHY_HSE
@@ -209,13 +209,13 @@
 	pll3:st,pll@2 {
 		compatible = "st,stm32mp1-pll";
 		reg = <2>;
-		cfg = < 1 33 1 16 36 PQR(1,0,0) >;
-		frac = < 0x1a04 >;
+		cfg = < 2 49 1 7 31 PQR(1,1,0) >;
 	};
 	pll4:st,pll@3 {
 		compatible = "st,stm32mp1-pll";
 		reg = <3>;
-		cfg = < 3 98 5 7 7 PQR(1,0,0) >;
+		cfg = < 4 103 4 7 5 PQR(1,0,1) >;
+		frac = < 0x556 >;
 	};
 };
 
@@ -650,4 +650,3 @@
          "board_id";
 };
 /* USER CODE END addons */
-
