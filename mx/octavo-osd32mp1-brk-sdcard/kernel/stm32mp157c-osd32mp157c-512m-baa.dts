@@ -378,8 +378,6 @@
 	phy-mode = "rmii";
 	max-speed = <100>;
 	phy-handle = <&phy0>;
-	nvmem-cells = <&ethernet_mac_address>;
-	nvmem-cell-names = "mac-address";
 	st,eth-ref-clk-sel;
 	clock-names = "stmmaceth",
 		"eth-ck",
@@ -391,18 +389,19 @@
 		<&rcc ETHTX>,
 		<&rcc ETHRX>,
 		<&rcc ETHSTP>;
-	snps,pbl = <8>;
 
 	mdio0 {
-			reset-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
-			reset-delay-us = <10000>;
-			post-reset-delay-us = <1000>;
-			/*interrupt-parent = <&gpiog>;*/
-			/*interrupts = <12 IRQ_TYPE_EDGE_FALLING>;*/ /* ETH_MDINT# */
-		phy0: ethernet-phy@0 {
+		compatible = "snps,dwmac-mdio";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		phy0: phy@0{
 			compatible = "ethernet-phy-id0007.C0D1";
 			reg = <0>;
-			/*compatible = "ethernet-phy-id0007.C0D1","ethernet-phy-ieee802.3-c22";*/
+			reset-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;	
+			interrupt-parent = <&gpiog>;
+			interrupts = <12 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
+			reset-delay-us = <10000>;
+			post-reset-delay-us = <1000>;
 			clocks = <&rcc ETHCK_K>;
 			clock-names = "rmii-ref";
 		};

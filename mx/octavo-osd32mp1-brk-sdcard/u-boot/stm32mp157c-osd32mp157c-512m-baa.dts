@@ -166,6 +166,44 @@
 
 }; /*root*/
 
+&pinctrl{
+	eth1_pins_mx: eth1_mx-0 {
+		pins1 {
+			pinmux = <STM32_PINMUX('A', 1, AF0)>, /* ETH1_CLK */
+					 <STM32_PINMUX('C', 1, AF11)>, /* ETH1_MDC */
+					 <STM32_PINMUX('G', 13, AF11)>, /* ETH1_TXD0 */
+					 <STM32_PINMUX('G', 14, AF11)>, /* ETH1_TXD1 */
+		 			 <STM32_PINMUX('A', 2, AF11)>, /* ETH1_MDIO */
+					 <STM32_PINMUX('B', 11, AF11)>; /* ETH1_TX_EN */
+			bias-disable;
+			drive-push-pull;
+			slew-rate = <2>;
+		};
+		pins2 {
+			pinmux = <STM32_PINMUX('A', 7, AF11)>, /* ETH1_CRS_DV */
+					 <STM32_PINMUX('C', 4, AF11)>, /* ETH1_RXD0 */
+					 <STM32_PINMUX('C', 5, AF11)>, /* ETH1_RXD1 */
+					 <STM32_PINMUX('G', 12, AF11)>; /* ETH1_PHY_INTN */
+			bias-disable;
+		};
+	};
+
+	eth1_sleep_pins_mx: eth1_sleep_mx-0 {
+		pins {
+			pinmux = <STM32_PINMUX('A', 1, ANALOG)>, /* ETH1_REF_CLK */
+					 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH1_MDIO */
+					 <STM32_PINMUX('A', 7, ANALOG)>, /* ETH1_CRS_DV */
+					 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH1_TX_EN */
+					 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH1_MDC */
+					 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH1_RXD0 */
+					 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH1_RXD1 */
+					 <STM32_PINMUX('G', 12, ANALOG)>, /* ETH1_PHY_INTN */
+					 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH1_TXD0 */
+					 <STM32_PINMUX('G', 14, ANALOG)>; /* ETH1_TXD1 */
+		};
+	};
+};
+
 &pinctrl {
 	u-boot,dm-pre-reloc;
 
@@ -362,6 +400,69 @@
 &gpu{
 	status = "okay";
 	contiguous-area = <&gpu_reserved>;
+};
+
+&ethernet0{
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&eth1_pins_mx>;
+	pinctrl-1 = <&eth1_sleep_pins_mx>;
+	status = "okay";
+	phy-mode = "rmii";
+	max-speed = <100>;
+	phy-handle = <&phy0>;
+	st,eth-ref-clk-sel;
+	clock-names = "stmmaceth",
+		"eth-ck",
+		"mac-clk-tx",
+		"mac-clk-rx",
+		"ethstp";
+	clocks = <&rcc ETHMAC>,
+		<&rcc ETHCK_K>,
+		<&rcc ETHTX>,
+		<&rcc ETHRX>,
+		<&rcc ETHSTP>;
+
+	mdio0 {
+		compatible = "snps,dwmac-mdio";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		phy0: phy@1{
+			compatible = "ethernet-phy-id0007.C0D1", "ethernet-phy-ieee802.3-ac";
+			reg = <1>;
+			reset-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;	
+			interrupt-parent = <&gpiog>;
+			interrupts = <12 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
+			reset-delay-us = <10000>;
+			post-reset-delay-us = <1000>;
+			clocks = <&rcc ETHCK_K>;
+			clock-names = "rmii-ref";
+		};
+
+		switch: switch@0 {
+			compatible = "smsc,lan9303-mdio";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			dsa,member = <0 0>;
+			reg = <0>;
+			ports {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				port@0 {
+					reg = <0>;
+					label = "cpu";
+					ethernet = <&ethernet0>;
+				};
+				port@1 { /* external port 1 */
+					reg = <1>;
+					label = "lan1";
+				};
+				port@2 { /* external port 2 */
+					reg = <2>;
+					label = "lan2";
+				};
+			};
+		};
+	};
 };
 
 &hash1{
