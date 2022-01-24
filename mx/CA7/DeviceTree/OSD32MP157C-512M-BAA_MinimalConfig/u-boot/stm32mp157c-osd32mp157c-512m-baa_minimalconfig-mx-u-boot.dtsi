@@ -90,16 +90,17 @@
 	>;
 	st,pkcs = <
 		CLK_CKPER_DISABLED
-		CLK_ETH_PLL3Q
+		CLK_ETH_DISABLED
 		CLK_SDMMC12_PLL4P
 		CLK_STGEN_HSI
-		CLK_USBPHY_DISABLED
+		CLK_USBPHY_HSE
 		CLK_SPI2S1_DISABLED
 		CLK_SPI2S23_DISABLED
 		CLK_SPI45_DISABLED
 		CLK_SPI6_DISABLED
 		CLK_I2C46_HSI
 		CLK_SDMMC3_DISABLED
+		CLK_USBO_USBPHY
 		CLK_ADC_DISABLED
 		CLK_CEC_DISABLED
 		CLK_I2C12_DISABLED
@@ -136,7 +137,7 @@
 	pll3:st,pll@2 {
 		compatible = "st,stm32mp1-pll";
 		reg = <2>;
-		cfg = < 2 49 1 7 31 PQR(1,1,0) >;
+		cfg = < 2 49 1 7 31 PQR(1,0,0) >;
 		u-boot,dm-pre-reloc;
 	};
 	pll4:st,pll@3 {
@@ -192,6 +193,34 @@
 
 	/* USER CODE BEGIN uart4 */
 	/* USER CODE END uart4 */
+};
+
+&usbotg_hs{
+	u-boot,dm-pre-reloc;
+
+	/* USER CODE BEGIN usbotg_hs */
+	/* USER CODE END usbotg_hs */
+};
+
+&usbphyc{
+	u-boot,dm-pre-reloc;
+
+	/* USER CODE BEGIN usbphyc */
+	/* USER CODE END usbphyc */
+};
+
+&usbphyc_port0{
+	u-boot,dm-pre-reloc;
+
+	/* USER CODE BEGIN usbphyc_port0 */
+	/* USER CODE END usbphyc_port0 */
+};
+
+&usbphyc_port1{
+	u-boot,dm-pre-reloc;
+
+	/* USER CODE BEGIN usbphyc_port1 */
+	/* USER CODE END usbphyc_port1 */
 };
 
 /* USER CODE BEGIN addons */

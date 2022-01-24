@@ -196,49 +196,6 @@
 &pinctrl {
 	u-boot,dm-pre-reloc;
 
-	eth1_pins_mx: eth1_mx-0 {
-		pins1 {
-			pinmux = <STM32_PINMUX('A', 1, AF0)>, /* ETH1_CLK */
-					 <STM32_PINMUX('C', 1, AF11)>, /* ETH1_MDC */
-					 <STM32_PINMUX('G', 13, AF11)>, /* ETH1_TXD0 */
-					 <STM32_PINMUX('G', 14, AF11)>; /* ETH1_TXD1 */
-			bias-disable;
-			drive-push-pull;
-			slew-rate = <1>;
-		};
-		pins2 {
-			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH1_MDIO */
-			bias-disable;
-			drive-push-pull;
-			slew-rate = <0>;
-		};
-		pins3 {
-			pinmux = <STM32_PINMUX('A', 7, AF11)>, /* ETH1_CRS_DV */
-					 <STM32_PINMUX('C', 4, AF11)>, /* ETH1_RXD0 */
-					 <STM32_PINMUX('C', 5, AF11)>, /* ETH1_RXD1 */
-					 <STM32_PINMUX('G', 12, AF11)>; /* ETH1_PHY_INTN */
-			bias-disable;
-		};
-		pins4 {
-			pinmux = <STM32_PINMUX('B', 11, AF11)>; /* ETH1_TX_EN */
-		};
-	};
-
-	eth1_sleep_pins_mx: eth1_sleep_mx-0 {
-		pins {
-			pinmux = <STM32_PINMUX('A', 1, ANALOG)>, /* ETH1_CLK */
-					 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH1_MDIO */
-					 <STM32_PINMUX('A', 7, ANALOG)>, /* ETH1_CRS_DV */
-					 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH1_TX_EN */
-					 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH1_MDC */
-					 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH1_RXD0 */
-					 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH1_RXD1 */
-					 <STM32_PINMUX('G', 12, ANALOG)>, /* ETH1_PHY_INTN */
-					 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH1_TXD0 */
-					 <STM32_PINMUX('G', 14, ANALOG)>; /* ETH1_TXD1 */
-		};
-	};
-
 	sdmmc1_pins_mx: sdmmc1_mx-0 {
 		u-boot,dm-pre-reloc;
 		pins1 {
@@ -324,6 +281,22 @@
 			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('B', 2, ANALOG)>, /* UART4_RX */
 					 <STM32_PINMUX('G', 11, ANALOG)>; /* UART4_TX */
+		};
+	};
+
+	usb_otg_hs_pins_mx: usb_otg_hs_mx-0 {
+		u-boot,dm-pre-reloc;
+		pins {
+			u-boot,dm-pre-reloc;
+			pinmux = <STM32_PINMUX('A', 10, ANALOG)>; /* USB_OTG_HS_ID */
+		};
+	};
+
+	usb_otg_hs_sleep_pins_mx: usb_otg_hs_sleep_mx-0 {
+		u-boot,dm-pre-reloc;
+		pins {
+			u-boot,dm-pre-reloc;
+			pinmux = <STM32_PINMUX('A', 10, ANALOG)>; /* USB_OTG_HS_ID */
 		};
 	};
 
@@ -427,16 +400,6 @@
 
 	/* USER CODE BEGIN dts */
 	/* USER CODE END dts */
-};
-
-&ethernet0{
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&eth1_pins_mx>;
-	pinctrl-1 = <&eth1_sleep_pins_mx>;
-	status = "okay";
-
-	/* USER CODE BEGIN ethernet0 */
-	/* USER CODE END ethernet0 */
 };
 
 &hash1{
@@ -724,6 +687,7 @@
 	status = "okay";
 
 	/* USER CODE BEGIN usbh_ehci */
+	phys = <&usbphyc_port0>;
 	/* USER CODE END usbh_ehci */
 };
 
@@ -735,7 +699,21 @@
 	/* USER CODE END usbh_ohci */
 };
 
+&usbotg_hs{
+	u-boot,dm-pre-reloc;
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&usb_otg_hs_pins_mx>;
+	pinctrl-1 = <&usb_otg_hs_sleep_pins_mx>;
+	status = "okay";
+
+	/* USER CODE BEGIN usbotg_hs */
+	phys = <&usbphyc_port1 0>;
+	phy-names = "usb2-phy";
+	/* USER CODE END usbotg_hs */
+};
+
 &usbphyc{
+	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN usbphyc */
@@ -743,6 +721,7 @@
 };
 
 &usbphyc_port0{
+	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN usbphyc_port0 */
@@ -752,6 +731,7 @@
 };
 
 &usbphyc_port1{
+	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN usbphyc_port1 */
@@ -776,4 +756,3 @@
 	};
 };
 /* USER CODE END addons */
-
