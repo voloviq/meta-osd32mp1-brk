@@ -62,7 +62,7 @@
 
 #ifndef CONFIG_TFABOOT
 
-&rcc {
+&rcc{
 	u-boot,dm-pre-reloc;
 	st,clksrc = <
 		CLK_MPU_HSE
@@ -100,15 +100,15 @@
 		CLK_SPI6_DISABLED
 		CLK_I2C46_HSI
 		CLK_SDMMC3_DISABLED
-		CLK_ADC_PLL4R
+		CLK_ADC_DISABLED
 		CLK_CEC_DISABLED
 		CLK_I2C12_DISABLED
 		CLK_I2C35_DISABLED
-		CLK_UART1_PCLK5
+		CLK_UART1_DISABLED
 		CLK_UART24_HSI
-		CLK_UART35_PCLK1
-		CLK_UART6_PCLK2
-		CLK_UART78_PCLK1
+		CLK_UART35_DISABLED
+		CLK_UART6_DISABLED
+		CLK_UART78_DISABLED
 		CLK_SPDIF_DISABLED
 		CLK_SAI1_DISABLED
 		CLK_SAI2_DISABLED
@@ -129,16 +129,19 @@
 	pll3:st,pll@2 {
 		compatible = "st,stm32mp1-pll";
 		reg = <2>;
-		cfg = < 2 49 1 7 31 PQR(1,1,0) >;
+		cfg = < 2 49 1 15 31 PQR(1,1,0) >;
 		u-boot,dm-pre-reloc;
 	};
 	pll4:st,pll@3 {
 		compatible = "st,stm32mp1-pll";
 		reg = <3>;
-		cfg = < 4 103 4 7 5 PQR(1,0,1) >;
+		cfg = < 4 103 4 7 5 PQR(1,0,0) >;
 		frac = < 0x556 >;
 		u-boot,dm-pre-reloc;
 	};
+
+	/* USER CODE BEGIN rcc */
+	/* USER CODE END rcc */
 };
 
 &i2c4{
@@ -178,6 +181,13 @@
 	/* USER CODE END hash1 */
 };
 
+&iwdg2{
+	u-boot,dm-pre-reloc;
+
+	/* USER CODE BEGIN iwdg2 */
+	/* USER CODE END iwdg2 */
+};
+
 &uart4{
 	u-boot,dm-pre-reloc;
 
@@ -187,3 +197,4 @@
 
 /* USER CODE BEGIN addons */
 /* USER CODE END addons */
+
