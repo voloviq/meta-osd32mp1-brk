@@ -138,7 +138,15 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSIDivValue = RCC_HSI_DIV1;
   RCC_OscInitStruct.CSIState = RCC_CSI_ON;
   RCC_OscInitStruct.CSICalibrationValue = 16;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLL12SOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 3;
+  RCC_OscInitStruct.PLL.PLLN = 81;
+  RCC_OscInitStruct.PLL.PLLP = 1;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLR = 2;
+  RCC_OscInitStruct.PLL.PLLFRACV = 2048;
+  RCC_OscInitStruct.PLL.PLLMODE = RCC_PLL_FRACTIONAL;
   RCC_OscInitStruct.PLL2.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL2.PLLSource = RCC_PLL12SOURCE_HSE;
   RCC_OscInitStruct.PLL2.PLLM = 3;
@@ -160,14 +168,14 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL3.PLLMODE = RCC_PLL_INTEGER;
   RCC_OscInitStruct.PLL4.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL4.PLLSource = RCC_PLL4SOURCE_HSE;
-  RCC_OscInitStruct.PLL4.PLLM = 5;
-  RCC_OscInitStruct.PLL4.PLLN = 104;
-  RCC_OscInitStruct.PLL4.PLLP = 5;
+  RCC_OscInitStruct.PLL4.PLLM = 4;
+  RCC_OscInitStruct.PLL4.PLLN = 99;
+  RCC_OscInitStruct.PLL4.PLLP = 6;
   RCC_OscInitStruct.PLL4.PLLQ = 8;
   RCC_OscInitStruct.PLL4.PLLR = 6;
   RCC_OscInitStruct.PLL4.PLLRGE = RCC_PLL4IFRANGE_0;
-  RCC_OscInitStruct.PLL4.PLLFRACV = 1366;
-  RCC_OscInitStruct.PLL4.PLLMODE = RCC_PLL_FRACTIONAL;
+  RCC_OscInitStruct.PLL4.PLLFRACV = 0;
+  RCC_OscInitStruct.PLL4.PLLMODE = RCC_PLL_INTEGER;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -178,7 +186,7 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2
                               |RCC_CLOCKTYPE_PCLK3|RCC_CLOCKTYPE_PCLK4
                               |RCC_CLOCKTYPE_PCLK5|RCC_CLOCKTYPE_MPU;
-  RCC_ClkInitStruct.MPUInit.MPU_Clock = RCC_MPUSOURCE_HSE;
+  RCC_ClkInitStruct.MPUInit.MPU_Clock = RCC_MPUSOURCE_PLL1;
   RCC_ClkInitStruct.MPUInit.MPU_Div = RCC_MPU_DIV2;
   RCC_ClkInitStruct.AXISSInit.AXI_Clock = RCC_AXISSOURCE_PLL2;
   RCC_ClkInitStruct.AXISSInit.AXI_Div = RCC_AXI_DIV1;

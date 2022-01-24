@@ -65,7 +65,7 @@
 &rcc{
 	u-boot,dm-pre-reloc;
 	st,clksrc = <
-		CLK_MPU_HSE
+		CLK_MPU_PLL1P
 		CLK_AXI_PLL2P
 		CLK_MCU_PLL3P
 		CLK_PLL12_HSE
@@ -119,6 +119,13 @@
 		CLK_LPTIM23_DISABLED
 		CLK_LPTIM45_DISABLED
 	>;
+	pll1:st,pll@0 {
+		compatible = "st,stm32mp1-pll";
+		reg = <0>;
+		cfg = < 2 80 0 1 1 PQR(1,0,0) >;
+		frac = < 0x800 >;
+		u-boot,dm-pre-reloc;
+	};
 	pll2:st,pll@1 {
 		compatible = "st,stm32mp1-pll";
 		reg = <1>;
@@ -135,8 +142,7 @@
 	pll4:st,pll@3 {
 		compatible = "st,stm32mp1-pll";
 		reg = <3>;
-		cfg = < 4 103 4 7 5 PQR(1,0,0) >;
-		frac = < 0x556 >;
+		cfg = < 3 98 5 7 5 PQR(1,0,0) >;
 		u-boot,dm-pre-reloc;
 	};
 

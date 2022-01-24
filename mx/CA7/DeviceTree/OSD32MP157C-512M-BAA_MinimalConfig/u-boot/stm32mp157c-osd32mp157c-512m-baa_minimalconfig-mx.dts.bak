@@ -145,20 +145,22 @@
 		compatible = "regulator-fixed";
 		regulator-name = "vmmcsd_fixed";
 		regulator-min-microvolt = <3300000>;
-		regulator-max-microvolt = <3300000>;
+        	regulator-max-microvolt = <3300000>;
+
 	};
 
-	vmmc: fixedregulator@1 {
-		compatible = "regulator-fixed";
-		regulator-name = "vmmc";
-		regulator-min-microvolt = <3300000>;
-		regulator-max-microvolt = <3300000>;
-		startup-delay-us = <70000>;
-		enable-active-high;
-		};
+   	vmmc: fixedregulator@1 {
+        	compatible = "regulator-fixed";
+        	regulator-name = "vmmc";
+        	regulator-min-microvolt = <3300000>;
+        	regulator-max-microvolt = <3300000>;
+        	startup-delay-us = <70000>;
+       		enable-active-high;
+    	};
+
 
 	aliases{
-		ethernet0 = &ethernet0;
+  	ethernet0 = &ethernet0;
 		serial0 = &uart4;
 		mmc0 = &sdmmc1;
 	};
@@ -366,6 +368,11 @@
 	status = "okay";
 
 	/* USER CODE BEGIN m4_rproc */
+	memory-region = <&retram>, <&mcuram>, <&mcuram2>, <&vdev0vring0>,
+			<&vdev0vring1>, <&vdev0buffer>;
+	interrupt-parent = <&exti>;
+	interrupts = <68 1>;
+	wakeup-source;
 	/* USER CODE END m4_rproc */
 
 	m4_system_resources{
@@ -776,4 +783,3 @@
 	};
 };
 /* USER CODE END addons */
-
