@@ -34,7 +34,7 @@ bitbake st-image-weston
 ```
 
 The following Octavo osd32mp1-brk machines are available:
-* osd32mp1-octavo-sd-card Module with SD Card
+* # meta-osd32mp1-brk - module with SD Card
 
 The compiled image files are located in the directory:
 
