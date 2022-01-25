@@ -19,6 +19,17 @@ In order to build the system image a Distribution Package provided by STMicroele
 
 https://wiki.st.com/stm32mpu/wiki/STM32MP1_Distribution_Package
 
+Before start make sure if **repo** is properly installed. If not go through following instuctions.
+
+```shel
+mkdir ~/usr
+mkdir ~/usr/bin
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/usr/bin/repo
+sudo cp ~/usr/bin/repo /usr/bin
+sudo chmod a+rx /usr/bin/repo
+rm -rf ~/usr/bin/
+```
+
 The summary of required steps is shown below:
 
 ```shell
