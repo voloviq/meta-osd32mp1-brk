@@ -59,6 +59,8 @@ sudo dd if=~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32
 
 To boot the system from SD card on Octavo osd32mp1-brk board the BOOT jumpers must be set to 101.
 
+![Boot pins settings](osd32mp1-boot-pins-settings.jpeg) <br>
+
 ## Building the SDK
 
 The SDK for the host system can be build by calling the bitbake command:
