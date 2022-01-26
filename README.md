@@ -19,6 +19,17 @@ In order to build the system image a Distribution Package provided by STMicroele
 
 https://wiki.st.com/stm32mpu/wiki/STM32MP1_Distribution_Package
 
+Before start make sure if **repo** is properly installed. If not go through following instuctions.
+
+```shel
+mkdir ~/usr
+mkdir ~/usr/bin
+curl https://storage.googleapis.com/git-repo-downloads/repo > ~/usr/bin/repo
+sudo cp ~/usr/bin/repo /usr/bin
+sudo chmod a+rx /usr/bin/repo
+rm -rf ~/usr/bin/
+```
+
 The summary of required steps is shown below:
 
 ```shell
@@ -51,7 +62,7 @@ cd ~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/
 ./create_sdcard_from_flashlayout.sh ../FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.tsv
 ```
 
-The system image is located in the FlashLayout_sdcard_<MACHINE_NAME>-trusted.raw file in the tmp-glibc/deploy/images/<MACHINE_NAME> directory. To install the image to a card connected to host PC the dd command may be used:
+The system image is located in the FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.raw file in the ~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/ directory. To install the image to a card connected to host PC the dd command may be used:
 
 ```
 sudo dd if=~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.raw of=/dev/sdx bs=8M conv=fdatasync status=progress
