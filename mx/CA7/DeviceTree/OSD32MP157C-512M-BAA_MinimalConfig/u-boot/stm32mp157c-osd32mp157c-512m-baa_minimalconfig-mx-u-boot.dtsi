@@ -90,7 +90,7 @@
 	>;
 	st,pkcs = <
 		CLK_CKPER_DISABLED
-		CLK_ETH_DISABLED
+		CLK_ETH_PLL3Q
 		CLK_SDMMC12_PLL4P
 		CLK_STGEN_HSI
 		CLK_USBPHY_HSE
@@ -137,7 +137,7 @@
 	pll3:st,pll@2 {
 		compatible = "st,stm32mp1-pll";
 		reg = <2>;
-		cfg = < 2 49 1 7 31 PQR(1,0,0) >;
+		cfg = < 2 49 1 7 31 PQR(1,1,0) >;
 		u-boot,dm-pre-reloc;
 	};
 	pll4:st,pll@3 {
@@ -163,6 +163,13 @@
 
 	/* USER CODE BEGIN sdmmc1 */
 	/* USER CODE END sdmmc1 */
+};
+
+&sdmmc2{
+	u-boot,dm-pre-reloc;
+
+	/* USER CODE BEGIN sdmmc2 */
+	/* USER CODE END sdmmc2 */
 };
 
 #endif	/*CONFIG_TFABOOT*/
