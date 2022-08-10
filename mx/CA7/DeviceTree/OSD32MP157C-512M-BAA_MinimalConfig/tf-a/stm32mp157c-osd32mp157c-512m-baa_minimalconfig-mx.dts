@@ -576,28 +576,6 @@
 	cpu-supply = <&vddcore>;
 };
 
-&nvmem_layout{
-	nvmem-cells = <&cfg0_otp>,
-	      <&part_number_otp>,
-	      <&monotonic_otp>,
-	      <&nand_otp>,
-	      <&uid_otp>,
-	      <&package_otp>,
-	      <&hw2_otp>,
-	      <&pkh_otp>,
-	      <&board_id>;
-
-	nvmem-cell-names = "cfg0_otp",
-	     "part_number_otp",
-	     "monotonic_otp",
-	     "nand_otp",
-	     "uid_otp",
-	     "package_otp",
-	     "hw2_otp",
-	     "pkh_otp",
-	     "board_id";
-};
-
 /* Low-power states of regulators */
 &v1v2_hdmi {
 	standby-ddr-sr {
