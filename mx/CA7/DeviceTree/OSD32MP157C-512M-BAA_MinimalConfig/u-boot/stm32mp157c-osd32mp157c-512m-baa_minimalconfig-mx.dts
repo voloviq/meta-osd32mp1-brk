@@ -205,13 +205,13 @@
 					 <STM32_PINMUX('G', 14, AF11)>; /* ETH1_TXD1 */
 			bias-disable;
 			drive-push-pull;
-			slew-rate = <1>;
+			slew-rate = <2>;
 		};
 		pins2 {
 			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH1_MDIO */
 			bias-disable;
 			drive-push-pull;
-			slew-rate = <0>;
+			slew-rate = <2>;
 		};
 		pins3 {
 			pinmux = <STM32_PINMUX('A', 7, AF11)>, /* ETH1_CRS_DV */
@@ -513,12 +513,13 @@
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&eth1_pins_mx>;
 	pinctrl-1 = <&eth1_sleep_pins_mx>;
-	status = "okay";
+	status = "disabled";
 
 	/* USER CODE BEGIN ethernet0 */
 	phy-mode = "rmii";
 	max-speed = <100>;
-	phy-handle = <&phy0>;
+	phy-handle = <&phy_port1>;
+
 	st,eth-ref-clk-sel;
 	clock-names = "stmmaceth",
 		"eth-ck",
@@ -531,20 +532,58 @@
 		<&rcc ETHRX>,
 		<&rcc ETHSTP>;
 
-	mdio0 {
+mdio0 {
 		compatible = "snps,dwmac-mdio";
 		#address-cells = <1>;
 		#size-cells = <0>;
-		phy0: phy@0{
-			compatible = "ethernet-phy-id0007.C0D1";
-			reg = <0>;
-			reset-gpios = <&gpioz 1 GPIO_ACTIVE_LOW>;
+
+		phy_port1: phy@1 {
+			reg = <1>;
+		};
+
+		phy_port2: phy@2 {
+			reg = <2>;
+		};
+
+		switch: switch@0 {
+			compatible = "smsc,lan9303-mdio";
+			#address-cells = <1>;
+			#size-cells = <0>;
+			#reset-gpios = <&gpioz 1 GPIO_ACTIVE_LOW>;	
+		    #phy-reset-duration = <25>;
+    		#phy-reset-post-delay = <1>;
+    		#phy-reset-active-low;
 			interrupt-parent = <&gpiog>;
 			interrupts = <12 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
-			reset-delay-us = <10000>;
-			post-reset-delay-us = <1000>;
+			#reset-delay-us = <10000>;
+			#post-reset-delay-us = <1000>;
+			dsa,member = <0 0>;
+			reg = <0>;
 			clocks = <&rcc ETHCK_K>;
 			clock-names = "rmii-ref";
+			ports {
+				#address-cells = <1>;
+				#size-cells = <0>;
+				ethphy0: port@0 {
+					reg = <0>;
+					phy-mode = "rmii";
+					label = "cpu";
+					ethernet = <&ethernet0>;
+					fixed-link {
+						speed = <100>;
+						full-duplex;
+					};
+				};
+				eth1: port@1 { /* external port 1 */
+					reg = <1>;
+					label = "lan1";
+					phy-handle = <&phy_port1>;
+				};
+				eth2: port@2 { /* external port 2 */
+					reg = <2>;
+					label = "lan2";
+				};
+			};
 		};
 	};
 	/* USER CODE END ethernet0 */
