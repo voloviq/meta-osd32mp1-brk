@@ -33,12 +33,12 @@ rm -rf ~/usr/bin/
 The summary of required steps is shown below:
 
 ```shell
-mkdir openstlinux-5.10-dunfell-mp1-21-11-17
-cd openstlinux-5.10-dunfell-mp1-21-11-17
-repo init -u https://github.com/STMicroelectronics/oe-manifest.git -b refs/tags/openstlinux-5.10-dunfell-mp1-21-11-17
+mkdir openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15
+cd openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15
+repo init -u https://github.com/STMicroelectronics/oe-manifest.git -b refs/tags/openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15
 repo sync
 cd layers/meta-st
-git clone -b dunfell https://github.com/voloviq/meta-osd32mp1-brk.git
+git clone -b kirkstone https://github.com/voloviq/meta-osd32mp1-brk.git
 cd ../../
 DISTRO=openstlinux-weston MACHINE=osd32mp1-brk source layers/meta-st/scripts/envsetup.sh
 bitbake st-image-weston
@@ -50,7 +50,7 @@ The following Octavo osd32mp1-brk machines are available:
 The compiled image files are located in the directory:
 
 ```
-~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk
+~/openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk
 ```
 
 ## Installing SD card image
@@ -58,14 +58,14 @@ The compiled image files are located in the directory:
 The SD card image needs to be created using the available script after the building process:
 
 ```
-cd ~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/scripts
+cd ~/openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/scripts
 ./create_sdcard_from_flashlayout.sh ../FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.tsv
 ```
 
-The system image is located in the FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.raw file in the ~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/ directory. To install the image to a card connected to host PC the dd command may be used:
+The system image is located in the FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.raw file in the ~/openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/ directory. To install the image to a card connected to host PC the dd command may be used:
 
 ```
-sudo dd if=~/openstlinux-5.10-dunfell-mp1-21-11-17/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.raw of=/dev/sdx bs=8M conv=fdatasync status=progress
+sudo dd if=~/openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15/build-openstlinuxweston-osd32mp1-brk/tmp-glibc/deploy/images/osd32mp1-brk/FlashLayout_sdcard_stm32mp157c-osd32mp157c-512m-baa_minimalconfig-mx-trusted.raw of=/dev/sdx bs=8M conv=fdatasync status=progress
 ```
 
 To boot the system from SD card on Octavo osd32mp1-brk board the BOOT jumpers must be set to 101.
