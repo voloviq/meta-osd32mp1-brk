@@ -43,6 +43,9 @@ cd ../../
 DISTRO=openstlinux-weston MACHINE=osd32mp1-brk source layers/meta-st/scripts/envsetup.sh
 bitbake st-image-weston
 ```
+**Note:**
+Before start compilation it is necessary to modify bblayers.conf by adding record
+BBLAYERS =+ "~/openstlinux-5.15-yocto-kirkstone-mp1-v22.06.15/layers/meta-st/meta-st-stm32mp-addons"
 
 The following Octavo osd32mp1-brk machines are available:
 * **osd32mp1-brk** - module with SD Card
