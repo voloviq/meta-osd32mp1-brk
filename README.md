@@ -83,4 +83,4 @@ The SDK for the host system can be build by calling the bitbake command:
 bitbake st-image-weston -c populate_sdk
 ```
 
-The SDK installer (st-image-weston-openstlinux-weston-<MACHINE_NAME>-x86_64-toolchain-2.6-snapshot.sh) is located in the tmp-glibc/deploy/sdk directory.
+The SDK installer (st-image-weston-openstlinux-weston-osd32mp1-brk-x86_64-toolchain-4.0.1-snapshot.sh) is located in the tmp-glibc/deploy/sdk directory.
