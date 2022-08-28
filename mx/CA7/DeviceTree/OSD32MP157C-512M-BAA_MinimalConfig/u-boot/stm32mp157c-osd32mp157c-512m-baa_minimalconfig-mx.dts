@@ -173,45 +173,28 @@
 		/* USER CODE BEGIN clocks */
 		/* USER CODE END clocks */
 
-#ifndef CONFIG_TFABOOT
-		clk_lsi: clk-lsi {
-			clock-frequency = <32000>;
-		};
-		clk_hsi: clk-hsi {
-			clock-frequency = <64000000>;
-		};
-		clk_csi: clk-csi {
-			clock-frequency = <4000000>;
-		};
-		clk_lse: clk-lse {
-			clock-frequency = <32768>;
-		};
-		clk_hse: clk-hse {
-			clock-frequency = <24000000>;
-		};
-#endif	/*CONFIG_TFABOOT*/
 	};
 
 }; /*root*/
 
 &pinctrl {
-	u-boot,dm-pre-reloc;
 
 	eth1_pins_mx: eth1_mx-0 {
 		pins1 {
 			pinmux = <STM32_PINMUX('A', 1, AF0)>, /* ETH1_CLK */
+					 <STM32_PINMUX('B', 11, AF11)>, /* ETH1_TX_EN */
 					 <STM32_PINMUX('C', 1, AF11)>, /* ETH1_MDC */
 					 <STM32_PINMUX('G', 13, AF11)>, /* ETH1_TXD0 */
 					 <STM32_PINMUX('G', 14, AF11)>; /* ETH1_TXD1 */
 			bias-disable;
 			drive-push-pull;
-			slew-rate = <2>;
+			slew-rate = <1>;
 		};
 		pins2 {
 			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH1_MDIO */
 			bias-disable;
 			drive-push-pull;
-			slew-rate = <2>;
+			slew-rate = <0>;
 		};
 		pins3 {
 			pinmux = <STM32_PINMUX('A', 7, AF11)>, /* ETH1_CRS_DV */
@@ -219,9 +202,6 @@
 					 <STM32_PINMUX('C', 5, AF11)>, /* ETH1_RXD1 */
 					 <STM32_PINMUX('G', 12, AF11)>; /* ETH1_PHY_INTN */
 			bias-disable;
-		};
-		pins4 {
-			pinmux = <STM32_PINMUX('B', 11, AF11)>; /* ETH1_TX_EN */
 		};
 	};
 
@@ -241,9 +221,7 @@
 	};
 
 	sdmmc1_pins_mx: sdmmc1_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins1 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
 					 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
 					 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
@@ -254,7 +232,6 @@
 			slew-rate = <1>;
 		};
 		pins2 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
 			bias-disable;
 			drive-push-pull;
@@ -263,9 +240,7 @@
 	};
 
 	sdmmc1_opendrain_pins_mx: sdmmc1_opendrain_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins1 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('C', 8, AF12)>, /* SDMMC1_D0 */
 					 <STM32_PINMUX('C', 9, AF12)>, /* SDMMC1_D1 */
 					 <STM32_PINMUX('C', 10, AF12)>, /* SDMMC1_D2 */
@@ -275,14 +250,12 @@
 			slew-rate = <1>;
 		};
 		pins2 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('C', 12, AF12)>; /* SDMMC1_CK */
 			bias-disable;
 			drive-push-pull;
 			slew-rate = <3>;
 		};
 		pins3 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('D', 2, AF12)>; /* SDMMC1_CMD */
 			bias-disable;
 			drive-open-drain;
@@ -291,9 +264,7 @@
 	};
 
 	sdmmc1_sleep_pins_mx: sdmmc1_sleep_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('C', 8, ANALOG)>, /* SDMMC1_D0 */
 					 <STM32_PINMUX('C', 9, ANALOG)>, /* SDMMC1_D1 */
 					 <STM32_PINMUX('C', 10, ANALOG)>, /* SDMMC1_D2 */
@@ -304,9 +275,7 @@
 	};
 
 	sdmmc2_pins_mx: sdmmc2_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins1 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
 					 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC2_D3 */
 					 <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
@@ -317,7 +286,6 @@
 			slew-rate = <1>;
 		};
 		pins2 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('E', 3, AF9)>; /* SDMMC2_CK */
 			bias-pull-up;
 			drive-push-pull;
@@ -326,9 +294,7 @@
 	};
 
 	sdmmc2_opendrain_pins_mx: sdmmc2_opendrain_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins1 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
 					 <STM32_PINMUX('B', 4, AF9)>, /* SDMMC2_D3 */
 					 <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
@@ -338,14 +304,12 @@
 			slew-rate = <1>;
 		};
 		pins2 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('E', 3, AF9)>; /* SDMMC2_CK */
 			bias-pull-up;
 			drive-push-pull;
 			slew-rate = <2>;
 		};
 		pins3 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('G', 6, AF10)>; /* SDMMC2_CMD */
 			bias-pull-up;
 			drive-open-drain;
@@ -354,9 +318,7 @@
 	};
 
 	sdmmc2_sleep_pins_mx: sdmmc2_sleep_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('B', 3, ANALOG)>, /* SDMMC2_D2 */
 					 <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC2_D3 */
 					 <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC2_D0 */
@@ -367,14 +329,11 @@
 	};
 
 	uart4_pins_mx: uart4_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins1 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('B', 2, AF8)>; /* UART4_RX */
 			bias-pull-up;
 		};
 		pins2 {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('G', 11, AF6)>; /* UART4_TX */
 			bias-disable;
 			drive-push-pull;
@@ -383,26 +342,20 @@
 	};
 
 	uart4_sleep_pins_mx: uart4_sleep_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('B', 2, ANALOG)>, /* UART4_RX */
 					 <STM32_PINMUX('G', 11, ANALOG)>; /* UART4_TX */
 		};
 	};
 
 	usb_otg_hs_pins_mx: usb_otg_hs_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('A', 10, ANALOG)>; /* USB_OTG_HS_ID */
 		};
 	};
 
 	usb_otg_hs_sleep_pins_mx: usb_otg_hs_sleep_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('A', 10, ANALOG)>; /* USB_OTG_HS_ID */
 		};
 	};
@@ -412,12 +365,9 @@
 };
 
 &pinctrl_z {
-	u-boot,dm-pre-reloc;
 
 	i2c4_pins_z_mx: i2c4_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('Z', 4, AF6)>, /* I2C4_SCL */
 					 <STM32_PINMUX('Z', 5, AF6)>; /* I2C4_SDA */
 			bias-pull-up;
@@ -427,9 +377,7 @@
 	};
 
 	i2c4_sleep_pins_z_mx: i2c4_sleep_mx-0 {
-		u-boot,dm-pre-reloc;
 		pins {
-			u-boot,dm-pre-reloc;
 			pinmux = <STM32_PINMUX('Z', 4, ANALOG)>, /* I2C4_SCL */
 					 <STM32_PINMUX('Z', 5, ANALOG)>; /* I2C4_SDA */
 		};
@@ -471,7 +419,6 @@
 };
 
 &cryp1{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN cryp1 */
@@ -518,7 +465,7 @@
 	/* USER CODE BEGIN ethernet0 */
 	phy-mode = "rmii";
 	max-speed = <100>;
-	phy-handle = <&phy_port1>;
+	phy-handle = <&ethvitrual0>;
 
 	st,eth-ref-clk-sel;
 	clock-names = "stmmaceth",
@@ -537,6 +484,10 @@ mdio0 {
 		#address-cells = <1>;
 		#size-cells = <0>;
 
+		#reset-gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
+		#reset-delay-us = <10000>;
+		#post-reset-delay-us = <1000>;
+
 		phy_port1: phy@1 {
 			reg = <1>;
 		};
@@ -549,14 +500,11 @@ mdio0 {
 			compatible = "smsc,lan9303-mdio";
 			#address-cells = <1>;
 			#size-cells = <0>;
-			#reset-gpios = <&gpioz 1 GPIO_ACTIVE_LOW>;	
-		    #phy-reset-duration = <25>;
-    		#phy-reset-post-delay = <1>;
-    		#phy-reset-active-low;
+			reset-gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
+			reset-duration = <200>;
+
 			interrupt-parent = <&gpiog>;
 			interrupts = <12 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
-			#reset-delay-us = <10000>;
-			#post-reset-delay-us = <1000>;
 			dsa,member = <0 0>;
 			reg = <0>;
 			clocks = <&rcc ETHCK_K>;
@@ -564,7 +512,7 @@ mdio0 {
 			ports {
 				#address-cells = <1>;
 				#size-cells = <0>;
-				ethphy0: port@0 {
+				ethvitrual0: port@0 {
 					reg = <0>;
 					phy-mode = "rmii";
 					label = "cpu";
@@ -574,14 +522,14 @@ mdio0 {
 						full-duplex;
 					};
 				};
-				eth1: port@1 { /* external port 1 */
+				ethphy1: port@1 { /* external port 1 */
 					reg = <1>;
 					label = "lan1";
-					phy-handle = <&phy_port1>;
 				};
-				eth2: port@2 { /* external port 2 */
+				ethphy2: port@2 { /* external port 2 */
 					reg = <2>;
 					label = "lan2";
+					phy-handle = <&phy_port2>;
 				};
 			};
 		};
@@ -590,7 +538,6 @@ mdio0 {
 };
 
 &hash1{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN hash1 */
@@ -605,7 +552,6 @@ mdio0 {
 };
 
 &i2c4{
-	u-boot,dm-pre-reloc;
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&i2c4_pins_z_mx>;
 	pinctrl-1 = <&i2c4_sleep_pins_z_mx>;
@@ -780,7 +726,6 @@ mdio0 {
 };
 
 &iwdg2{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN iwdg2 */
@@ -812,7 +757,6 @@ mdio0 {
 };
 
 &rcc{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN rcc */
@@ -834,7 +778,6 @@ mdio0 {
 };
 
 &sdmmc1{
-	u-boot,dm-pre-reloc;
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc1_pins_mx>;
 	pinctrl-1 = <&sdmmc1_opendrain_pins_mx>;
@@ -851,7 +794,6 @@ mdio0 {
 };
 
 &sdmmc2{
-	u-boot,dm-pre-reloc;
 	pinctrl-names = "default", "opendrain", "sleep";
 	pinctrl-0 = <&sdmmc2_pins_mx>;
 	pinctrl-1 = <&sdmmc2_opendrain_pins_mx>;
@@ -877,7 +819,6 @@ mdio0 {
 };
 
 &uart4{
-	u-boot,dm-pre-reloc;
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&uart4_pins_mx>;
 	pinctrl-1 = <&uart4_sleep_pins_mx>;
@@ -906,7 +847,6 @@ mdio0 {
 };
 
 &usbotg_hs{
-	u-boot,dm-pre-reloc;
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&usb_otg_hs_pins_mx>;
 	pinctrl-1 = <&usb_otg_hs_sleep_pins_mx>;
@@ -919,7 +859,6 @@ mdio0 {
 };
 
 &usbphyc{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN usbphyc */
@@ -927,7 +866,6 @@ mdio0 {
 };
 
 &usbphyc_port0{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN usbphyc_port0 */
@@ -937,7 +875,6 @@ mdio0 {
 };
 
 &usbphyc_port1{
-	u-boot,dm-pre-reloc;
 	status = "okay";
 
 	/* USER CODE BEGIN usbphyc_port1 */

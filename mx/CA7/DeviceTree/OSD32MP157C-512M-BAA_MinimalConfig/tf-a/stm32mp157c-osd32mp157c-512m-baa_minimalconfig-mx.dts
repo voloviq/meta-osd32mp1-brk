@@ -154,7 +154,6 @@
 
 &bsec{
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN bsec */
 	board_id: board_id@ec {
@@ -172,7 +171,7 @@
 };
 
 &etzpc{
-	secure-status = "okay";
+	status = "okay";
 	st,decprot = <
 	/*"Non Secured" peripherals*/
 	DECPROT(STM32MP1_ETZPC_CRYP1_ID, DECPROT_NS_RW, DECPROT_UNLOCK)
@@ -217,7 +216,6 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&i2c4_pins_z_mx>;
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN i2c4 */
 	i2c-scl-rising-time-ns = <185>;
@@ -352,7 +350,6 @@
 
 &iwdg2{
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN iwdg2 */
 	timeout-sec = <32>;
@@ -362,7 +359,6 @@
 
 &pwr_regulators{
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN pwr_regulators */
 	system_suspend_supported_soc_modes = <
@@ -378,10 +374,10 @@
 
 &rcc{
 	status = "okay";
-	secure-status = "okay";
-	st,csi-cal;
-	st,hsi-cal;
-	st,cal-sec = <60>;
+
+	/* USER CODE BEGIN rcc */
+	/* USER CODE END rcc */
+
 	st,clksrc = <
 		CLK_MPU_PLL1P
 		CLK_AXI_PLL2P
@@ -460,14 +456,10 @@
 		reg = <3>;
 		cfg = < 3 98 5 7 5 PQR(1,0,0) >;
 	};
-
-	/* USER CODE BEGIN rcc */
-	/* USER CODE END rcc */
 };
 
 &rng1{
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN rng1 */
 	/* USER CODE END rng1 */
@@ -475,7 +467,6 @@
 
 &rtc{
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN rtc */
 	/* USER CODE END rtc */
@@ -512,7 +503,6 @@
 
 &tamp{
 	status = "okay";
-	secure-status = "okay";
 
 	/* USER CODE BEGIN tamp */
 	/* USER CODE END tamp */
