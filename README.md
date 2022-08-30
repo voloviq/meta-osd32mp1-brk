@@ -29,6 +29,14 @@ sudo cp ~/usr/bin/repo /usr/bin
 sudo chmod a+rx /usr/bin/repo
 rm -rf ~/usr/bin/
 ```
+Install following packages using
+
+sudo apt-get install gawk wget diffstat unzip texinfo gcc-multilib build-essential chrpath socat libsdl1.2-dev xterm emscripten libmpc-dev libgmp3-dev dfu-util bsdmainutils libegl1-mesa libssl-dev lz4 pylint python3-git python3-jinja2 python3-pip git python-is-python3
+
+Fill git assigment if necessary
+
+git config --global user.email "name@email.com"
+git config --global user.name "User Name"
 
 The summary of required steps is shown below:
 
