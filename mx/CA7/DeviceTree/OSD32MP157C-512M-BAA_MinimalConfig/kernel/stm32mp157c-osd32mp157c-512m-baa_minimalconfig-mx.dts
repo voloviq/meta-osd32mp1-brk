@@ -465,7 +465,7 @@
 	/* USER CODE BEGIN ethernet0 */
 	phy-mode = "rmii";
 	max-speed = <100>;
-	phy-handle = <&ethvitrual0>;
+	phy-handle = <&phy_port1>;
 
 	st,eth-ref-clk-sel;
 	clock-names = "stmmaceth",
@@ -484,10 +484,6 @@ mdio0 {
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		#reset-gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
-		#reset-delay-us = <10000>;
-		#post-reset-delay-us = <1000>;
-
 		phy_port1: phy@1 {
 			reg = <1>;
 		};
@@ -496,40 +492,43 @@ mdio0 {
 			reg = <2>;
 		};
 
-		switch: switch@0 {
+		dsa@0{
 			compatible = "smsc,lan9303-mdio";
-			#address-cells = <1>;
+			#address-cells = <2>;
 			#size-cells = <0>;
-			reset-gpios = <&gpiob 1 GPIO_ACTIVE_LOW>;
+			reset-gpios = <&gpioz 1 GPIO_ACTIVE_LOW>;
 			reset-duration = <200>;
-
 			interrupt-parent = <&gpiog>;
 			interrupts = <12 IRQ_TYPE_EDGE_FALLING>; /* ETH_MDINT# */
-			dsa,member = <0 0>;
-			reg = <0>;
-			clocks = <&rcc ETHCK_K>;
-			clock-names = "rmii-ref";
-			ports {
-				#address-cells = <1>;
-				#size-cells = <0>;
-				ethvitrual0: port@0 {
-					reg = <0>;
-					phy-mode = "rmii";
-					label = "cpu";
-					ethernet = <&ethernet0>;
-					fixed-link {
-						speed = <100>;
-						full-duplex;
+			switch: switch@0 {
+				dsa,ethernet = <&ethernet0>;
+				/*dsa,mii-bus = <&phy_port1>;*/
+				reg = <0>;
+				clocks = <&rcc ETHCK_K>;
+				clock-names = "rmii-ref";
+				ports {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					reg = <3 0>;
+					ethvitrual0: port@0 {
+						reg = <0>;
+						phy-mode = "rmii";
+						label = "cpu";
+						ethernet = <&ethernet0>;
+						fixed-link {
+							speed = <100>;
+							full-duplex;
+						};
 					};
-				};
-				ethphy1: port@1 { /* external port 1 */
-					reg = <1>;
-					label = "lan1";
-				};
-				ethphy2: port@2 { /* external port 2 */
-					reg = <2>;
-					label = "lan2";
-					phy-handle = <&phy_port2>;
+					ethphy1: port@1 { /* external port 1 */
+						reg = <1>;
+						label = "lan1";
+						phy-handle = <&phy_port1>;
+					};
+					ethphy2: port@2 { /* external port 2 */
+						reg = <2>;
+						label = "lan2";
+					};
 				};
 			};
 		};

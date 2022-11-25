@@ -855,6 +855,8 @@ mdio0 {
 	/* USER CODE BEGIN usbotg_hs */
 	phys = <&usbphyc_port1 0>;
 	phy-names = "usb2-phy";
+ 	u-boot,force-b-session-valid;
+ 	dr_mode = "peripheral";
 	/* USER CODE END usbotg_hs */
 };
 
